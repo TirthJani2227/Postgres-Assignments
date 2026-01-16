@@ -1,3 +1,4 @@
+// ------------------- ASSIGNMENT 1 ------------------- 
 // Creating a database name homecare_db
 
 CREATE DATABASE homecare_db
@@ -14,20 +15,21 @@ CREATE SCHEMA hc
     AUTHORIZATION postgres;
 
 // Creating Extention for UUID
-+
+
+
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 //Created Table Users 
 
-CREATE TABLE users (
+CREATE TABLE hc.users (
 	user_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
 	first_name varchar(30) not null,
 	last_name varchar(40) not null,
 	email varchar(50) unique not null,
 	password varchar(255) not null,
-	created_by UUID REFERENCES users(user_id) on DELETE NO ACTION,
+	created_by UUID REFERENCES hc.users(user_id) on DELETE NO ACTION,
 	created_date timestamptz not null default now(),
-	modified_by UUID REFERENCES users(user_id) on DELETE NO ACTION,
+	modified_by UUID REFERENCES hc.users(user_id) on DELETE NO ACTION,
 	modified_date timestamptz ,
 	is_active boolean not null default TRUE, 
 	is_deleted boolean not null default FALSE,
@@ -39,7 +41,7 @@ CREATE TABLE users (
 // Entering 10 dummy entaries
 
 	// For First user
-		INSERT INTO users (
+		INSERT INTO hc.users (
     first_name,
     last_name,
     email,
@@ -60,7 +62,7 @@ CREATE TABLE users (
 );
 
 	// For Other users
-INSERT INTO users (
+INSERT INTO hc.users (
     first_name,
     last_name,
     email,
@@ -69,19 +71,20 @@ INSERT INTO users (
     birth_date,
     address,
     mobile_number
-) VALUES ('Jane','Smith','jane.smith@example.com','$2a$10$abcdef123457','362cdbc6-a8c9-4481-8945-6b065f714113','1988-05-22','456 Oak Ave, Los Angeles, CA','2345678901'),
-    ('Michael','Brown','michael.brown@example.com','$2a$10$abcdef123458','362cdbc6-a8c9-4481-8945-6b065f714113','1992-09-10','789 Pine Rd, Chicago, IL','3456789012'),
-    ('Emily','Davis','emily.davis@example.com','$2a$10$abcdef123459','362cdbc6-a8c9-4481-8945-6b065f714113','1995-12-03','321 Maple St, Houston, TX','4567890123'),
-    ('Daniel','Wilson','daniel.wilson@example.com','$2a$10$abcdef123460','362cdbc6-a8c9-4481-8945-6b065f714113','1985-07-19','654 Cedar Ln, Phoenix, AZ','5678901234'),
-    ('Sophia','Taylor','sophia.taylor@example.com','$2a$10$abcdef123461','362cdbc6-a8c9-4481-8945-6b065f714113','1993-03-27','987 Birch Blvd, San Diego, CA','6789012345'),
-    ('James','Anderson','james.anderson@example.com','$2a$10$abcdef123462','362cdbc6-a8c9-4481-8945-6b065f714113','1989-11-11','159 Walnut Way, Dallas, TX','7890123456'),
-    ('Olivia','Thomas','olivia.thomas@example.com','$2a$10$abcdef123463','362cdbc6-a8c9-4481-8945-6b065f714113','1996-06-08','753 Spruce Ct, Austin, TX','8901234567'),
-    ('William','Moore','william.moore@example.com','$2a$10$abcdef123464','362cdbc6-a8c9-4481-8945-6b065f714113','1987-02-14','852 Aspen Dr, Seattle, WA','9012345678'),
-    ('Ava','Martin','ava.martin@example.com','$2a$10$abcdef123465','362cdbc6-a8c9-4481-8945-6b065f714113','1994-08-30','951 Cherry Pl, Boston, MA','0123456789');
+) VALUES ('Jane','Smith','jane.smith@example.com','$2a$10$abcdef123457','19e77c21-3459-4c12-a566-f452b9336b50','1988-05-22','456 Oak Ave, Los Angeles, CA','2345678901'),
+    ('Michael','Brown','michael.brown@example.com','$2a$10$abcdef123458','19e77c21-3459-4c12-a566-f452b9336b50','1992-09-10','789 Pine Rd, Chicago, IL','3456789012'),
+    ('Emily','Davis','emily.davis@example.com','$2a$10$abcdef123459','19e77c21-3459-4c12-a566-f452b9336b50','1995-12-03','321 Maple St, Houston, TX','4567890123'),
+    ('Daniel','Wilson','daniel.wilson@example.com','$2a$10$abcdef123460','19e77c21-3459-4c12-a566-f452b9336b50','1985-07-19','654 Cedar Ln, Phoenix, AZ','5678901234'),
+    ('Sophia','Taylor','sophia.taylor@example.com','$2a$10$abcdef123461','19e77c21-3459-4c12-a566-f452b9336b50','1993-03-27','987 Birch Blvd, San Diego, CA','6789012345'),
+    ('James','Anderson','james.anderson@example.com','$2a$10$abcdef123462','19e77c21-3459-4c12-a566-f452b9336b50','1989-11-11','159 Walnut Way, Dallas, TX','7890123456'),
+    ('Olivia','Thomas','olivia.thomas@example.com','$2a$10$abcdef123463','19e77c21-3459-4c12-a566-f452b9336b50','1996-06-08','753 Spruce Ct, Austin, TX','8901234567'),
+    ('William','Moore','william.moore@example.com','$2a$10$abcdef123464','19e77c21-3459-4c12-a566-f452b9336b50','1987-02-14','852 Aspen Dr, Seattle, WA','9012345678'),
+    ('Ava','Martin','ava.martin@example.com','$2a$10$abcdef123465','19e77c21-3459-4c12-a566-f452b9336b50','1994-08-30','951 Cherry Pl, Boston, MA','0123456789');
+
 		
 // Section 5 
 	// Fetch all users
-		select * from users;
+		select * from hc.users;
 	// Concat 
 		select concat(first_name,' ' ,last_name) as name, email from users;
 	// To  fetch all inactive
@@ -98,3 +101,7 @@ INSERT INTO users (
 		select * from users order by created_date  desc limit 5 ;
 	// Second page of results (5 records per page
 		select * from users offset 5 limit 5;
+
+
+// ------------------- ASSIGNMENT 2 ------------------- 
+
